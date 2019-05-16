@@ -1,6 +1,6 @@
 # AsyncResult is a small set of utils for working with promises
 [![Coverage Status](https://coveralls.io/repos/github/taburetkin/asyncresult/badge.svg?branch=master)](https://coveralls.io/github/taburetkin/asyncresult?branch=master)
-
+![Build status](https://secure.travis-ci.org/taburetkin/asyncresult.svg?branch=master)
 ## examples:
 usual approach:
 ```js
