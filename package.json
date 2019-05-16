@@ -9,7 +9,8 @@
 	"scripts": {
 		"test-w": "mocha -w --config ./test/.mocharc.json",
 		"test": "mocha --config ./test/.mocharc.json",
-		"coverage": "nyc npm run test"
+		"coverage": "nyc npm run test",
+		"coveralls" : "yarn coverage && nyc --reporter=text-lcov npm run test | coveralls"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.4.4",
@@ -19,6 +20,7 @@
 		"@babel/runtime": "^7.4.4",
 		"chai": "^4.2.0",
 		"chai-as-promised": "^7.1.1",
+		"coveralls": "^3.0.3",
 		"cross-env": "^5.2.0",
 		"eslint": "^5.16.0",
 		"mocha": "^6.1.4",
