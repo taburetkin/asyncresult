@@ -1,0 +1,28 @@
+{
+	"name": "asyncresult",
+	"version": "1.0.0",
+	"description": "helpful wrapper for promises",
+	"main": "index.js",
+	"repository": "https://github.com/taburetkin/asyncresult.git",
+	"author": "dimtabu <dima.taburetkin@gmail.com>",
+	"license": "MIT",
+	"scripts": {
+		"coverage": "cross-env NODE_ENV=test nyc mocha --config ./test/.mocharc.json && nyc report --reporter=html",
+		"test": "yarn mocha -w --config ./test/.mocharc.json"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.4.4",
+		"@babel/plugin-transform-runtime": "^7.4.4",
+		"@babel/preset-env": "^7.4.4",
+		"@babel/register": "^7.4.4",
+		"@babel/runtime": "^7.4.4",
+		"chai": "^4.2.0",
+		"chai-as-promised": "^7.1.1",
+		"cross-env": "^5.2.0",
+		"eslint": "^5.16.0",
+		"mocha": "^6.1.4",
+		"nyc": "^14.1.0",
+		"sinon": "^7.3.2",
+		"sinon-chai": "^3.3.0"
+	}
+}
