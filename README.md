@@ -73,6 +73,19 @@ if (res.isError()) {
 ```
 
 --------------
+# install
+
+```
+npm -i asyncresult
+```
+
+or
+
+```
+yarn add asyncresult
+```
+
+
 # content
 
 ## class AsyncResult - constructor(error, value)
