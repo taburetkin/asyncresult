@@ -163,6 +163,8 @@ result = await myAsyncMethod(); // returns AsyncResult with value 'foo';
 
 example:
 ```js
+import { addAsync } from 'asyncresult'
+
 const Something = {
 	foo() { ... },
 	bar() { ... },
