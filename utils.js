@@ -44,11 +44,9 @@ function wrapMethod(method, { context, AsyncResult } = {}) {
 		} catch (error) {
 			return toAsyncResult(error, AsyncResult);
 		}
-		//return toAsyncResult(method.apply(this, arguments), AsyncResult);
 	};
 	if (context) {
 		asyncMethod = asyncMethod.bind(context);
-		asyncMethod();
 	}
 	return asyncMethod;
 }
