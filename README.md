@@ -47,7 +47,7 @@ catch (err) {
 
 and the same with AsyncResult
 ```js
-import { wrapMethd } from 'asyncresult';
+import { wrapMethod } from 'asyncresult';
 const fetchSomethingAsync = wrapMethod(fetchSomething);
 const fetchSomethingElseAsync = wrapMethod(fetchSomethingElse);
 const fetchLastThingAsync = wrapMethod(fetchLastThing);
@@ -72,9 +72,10 @@ if (res.isError()) {
 
 ```
 
+--------------
+# content
 
-
-## AsyncResult - constructor(error, value)
+## class AsyncResult - constructor(error, value)
 > every wrapped and awaited method returns instance of AsyncResult
 
 ### instance methods
@@ -97,8 +98,23 @@ if (res.isError()) {
 **AsyncResult.success(value)** - shorthand for `new AsyncResult(null, value)`  
 **AsyncResult.fail(erro)** - shorthand for `new AsyncResult(error)`  
 
+example
+```js
+import { AsyncResult } from 'asyncresult';
+let r1 = new AsyncResult(null, 'foo'); // same as AsyncResult.success('foo')
+console.log(r1.isError()); // false
+console.log(r1.val()); // 'foo'
 
-## toAsyncResult(arg, AsyncResultClass)
+
+let r2 = new AsyncResult('foo');  // same as AsyncResult.fail('foo')
+console.log(r1.isError()); // true
+console.log(r1.err()); // 'foo'
+
+
+```
+
+
+## util toAsyncResult(arg, AsyncResultClass)
 > converts given argument to a promise which will be resolved or rejected with AsyncResult instance.  
 If `arg` is instanceof `Error` then it will goes to the error value
 
@@ -108,6 +124,7 @@ If `arg` is instanceof `Error` then it will goes to the error value
 
 examples
 ```js
+import { toAsyncResult } from 'asyncresult';
 
 let mypromise = Promise.resolve('foo');
 let value = await mypromise; // 'foo';
@@ -116,7 +133,7 @@ value = await mypromiseAsync; // AsyncResult { value: 'foo' }
 
 ```
 
-## wrapMethod(method, options)
+## util wrapMethod(method, options)
 > returns new method which always return promise which will resolve with AsyncResult 
 
 **method** - function, required
@@ -128,17 +145,20 @@ value = await mypromiseAsync; // AsyncResult { value: 'foo' }
 
 examples
 ```js
+import { wrapMethod } from 'asyncresult';
 
 const myMethod = function() {
 	return 'foo'
 }
+
 const myAsyncMethod = wrapMethod(myMethod);
+
 let result = myAsyncMethod(); // returns promise;
 result = await myAsyncMethod(); // returns AsyncResult with value 'foo';
 
 ```
 
-## addAsync(context, methodNames, options)
+## util addAsync(context, methodNames, options)
 > adds async version of exist methods, founded by given names  
 
 example:
