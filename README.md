@@ -93,23 +93,35 @@ yarn add asyncresult
 
 ### instance methods
 
-**isError()** returns `true` if there is error, empty string treated as error.  
-**isOk()** returns `true` if there is no error  
-**isEmpty()** returns `true` if there is no error and any value 
-**hasValue()** returns `true` if there is any value. empty string treated as value.
+- **isError()**  
+returns `true` if there is error, empty string treated as error.  
+- **isOk()**  
+returns `true` if there is no error  
+- **isEmpty()**  
+returns `true` if there is no error and any value.  
+- **hasValue()**  
+returns `true` if there is any value. empty string treated as value.
 
-**err()** returns error.  
-**val()** returns value.  
-**errOrVal()** returns error or value in such order.  
+- **err()**  
+returns error.  
+- **val()**  
+returns value.  
+- **errOrVal()**  
+returns error or value in such order.  
 
-**setValue(value)** sets given value.  
-**setError(err)** sets given error.  
-**set(err, val)** sets given error and value.  
+- **setValue(value)**  
+sets given value.  
+- **setError(err)**  
+sets given error.  
+- **set(err, val)**  
+sets given error and value.  
 
 ### static methods
 
-**AsyncResult.success(value)** - shorthand for `new AsyncResult(null, value)`  
-**AsyncResult.fail(erro)** - shorthand for `new AsyncResult(error)`  
+- **AsyncResult.success(value)**  
+shorthand for `new AsyncResult(null, value)`  
+- **AsyncResult.fail(erro)**  
+shorthand for `new AsyncResult(error)`  
 
 example
 ```js
