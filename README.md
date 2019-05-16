@@ -161,8 +161,8 @@ value = await mypromiseAsync; // AsyncResult { value: 'foo' }
 ## util wrapMethod(method, options)
 > returns new method which always return promise which will resolve with AsyncResult 
 
-**method** - function, required
-**options** - object, optional
+**method** - function, required.  
+**options** - object, optional.  
 
 ### options
 **context** - binds returned new function to this context
@@ -213,15 +213,15 @@ Something.fooAsync = wrapMethod(Something.foo, { context: Something })
 
 **context** - object, required. Context for methods lookup and for adding asynced methods.  
 **methodNames** - string | array of strings, required. Array of methods names or single method name to be wraped.  
-**options** - object, optional
+**options** - object, optional.
 
 ### options
 **context** - forced context, will be used internally in `wrapMethod` as context.  
-**AsyncResult** - AsyncResult class, in case you need extend version of AsyncResult
+**AsyncResult** - AsyncResult class, in case you need extend version of AsyncResult.
 
 ## config
-> keeps default AsyncResult class, you can replace it with your own
-used by default if there is no AsyncResult option provided.
+> keeps default AsyncResult class, you can replace it with your own.  
+Used by default if there is no AsyncResult option provided.
 
 example
 ```js
