@@ -78,13 +78,13 @@ if (res.isError()) {
 # install
 
 ```
-npm -i asyncresult
+npm -i asyncresult-js
 ```
 
 or
 
 ```
-yarn add asyncresult
+yarn add asyncresult-js
 ```
 
 
