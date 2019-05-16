@@ -54,21 +54,24 @@ const fetchSomethingAsync = wrapMethod(fetchSomething);
 const fetchSomethingElseAsync = wrapMethod(fetchSomethingElse);
 const fetchLastThingAsync = wrapMethod(fetchLastThing);
 
-let res = await fetchSomethingAsync();
-if (res.isError()) {
-	throw res.err();
-}
+// assume we are in some async context
+async () => {
+	let res = await fetchSomethingAsync();
+	if (res.isError()) {
+		throw res.err();
+	}
 
-res = await fetchSomethingElseAsync();
-if (res.isError()) {
-	throw res.err();
-}
+	res = await fetchSomethingElseAsync();
+	if (res.isError()) {
+		throw res.err();
+	}
 
-res = await fetchLastThingAsync();
-if (res.isError()) {
-	throw res.err();
-} else {
-	showTheData(res.val());
+	res = await fetchLastThingAsync();
+	if (res.isError()) {
+		throw res.err();
+	} else {
+		showTheData(res.val());
+	}
 }
 
 
@@ -153,11 +156,15 @@ examples
 ```js
 import { toAsyncResult } from 'asyncresult-js';
 
-let mypromise = Promise.resolve('foo');
-let value = await mypromise; // 'foo';
-let mypromiseAsync = toAsyncResult(mypromise);
-value = await mypromiseAsync; // AsyncResult { value: 'foo' }
+// assume we are in some async context
+async () => {
 
+	let mypromise = Promise.resolve('foo');
+	let value = await mypromise; // 'foo';
+	let mypromiseAsync = toAsyncResult(mypromise);
+	value = await mypromiseAsync; // AsyncResult { value: 'foo' }
+
+}
 ```
 
 ## util wrapMethod(method, options)
@@ -181,7 +188,11 @@ const myMethod = function() {
 const myAsyncMethod = wrapMethod(myMethod);
 
 let result = myAsyncMethod(); // returns promise;
-result = await myAsyncMethod(); // returns AsyncResult with value 'foo';
+
+// assume we are in some async context
+async () => {
+	result = await myAsyncMethod(); // returns AsyncResult with value 'foo';
+}
 
 ```
 
@@ -232,7 +243,10 @@ config.AsyncResult = MyOwnAsyncResult;
 
 const test = () => true;
 const testAsync = wrapMethod(test);
-const result = await testAsync();
-console.log(result instanceof MyOwnAsyncResult); // true
 
+// assume we are in some async context
+async () => {
+	const result = await testAsync();
+	console.log(result instanceof MyOwnAsyncResult); // true
+}
 ```
