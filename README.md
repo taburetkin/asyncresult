@@ -127,7 +127,7 @@ shorthand for `new AsyncResult(error)`
 
 example
 ```js
-import { AsyncResult } from 'asyncresult';
+import { AsyncResult } from 'asyncresult-js';
 let r1 = new AsyncResult(null, 'foo'); // same as AsyncResult.success('foo')
 console.log(r1.isError()); // false
 console.log(r1.val()); // 'foo'
@@ -151,7 +151,7 @@ If `arg` is instanceof `Error` then it will goes to the error value
 
 examples
 ```js
-import { toAsyncResult } from 'asyncresult';
+import { toAsyncResult } from 'asyncresult-js';
 
 let mypromise = Promise.resolve('foo');
 let value = await mypromise; // 'foo';
@@ -167,12 +167,12 @@ value = await mypromiseAsync; // AsyncResult { value: 'foo' }
 **options** - object, optional.  
 
 ### options
-**context** - binds returned new function to this context
+**context** - binds returned new function to this context.  
 **AsyncResult** - AsyncResult constructor, provide it if you need extended version of AsyncResult
 
 examples
 ```js
-import { wrapMethod } from 'asyncresult';
+import { wrapMethod } from 'asyncresult-js';
 
 const myMethod = function() {
 	return 'foo'
@@ -190,7 +190,7 @@ result = await myAsyncMethod(); // returns AsyncResult with value 'foo';
 
 example:
 ```js
-import { addAsync } from 'asyncresult'
+import { addAsync } from 'asyncresult-js'
 
 const Something = {
 	foo() { ... },
@@ -227,7 +227,7 @@ Used by default if there is no AsyncResult option provided.
 
 example
 ```js
-import { config, wrapMethod } from 'asyncresult';
+import { config, wrapMethod } from 'asyncresult-js';
 config.AsyncResult = MyOwnAsyncResult;
 
 const test = () => true;
