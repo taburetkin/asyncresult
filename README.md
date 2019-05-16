@@ -78,7 +78,7 @@ if (res.isError()) {
 # install
 
 ```
-npm -i asyncresult-js
+npm i asyncresult-js
 ```
 
 or
