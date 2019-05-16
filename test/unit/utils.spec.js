@@ -178,6 +178,40 @@ describe('# utils:', function() {
 
 		});
 
+		describe('when wrapped a promise which will resolved as AsyncResult with value', function() {
+			let wrapped;
+			let value = new AsyncResult(null, { foo: 'bar' });
+			beforeEach(function() {
+				wrapped = toAsyncResult(Promise.resolve(value));
+			});
+
+			it('should return promise', function() {
+				expect(wrapped).to.be.instanceOf(Promise);
+			});
+
+			it('should resolve with given AsyncResult instance', async function() {
+				expect(await wrapped).to.be.equal(value);
+			});
+
+		});
+
+		describe('when wrapped a promise which will resolved as AsyncResult with error', function() {
+			let wrapped;
+			let value = new AsyncResult(null, { foo: 'bar' });
+			beforeEach(function() {
+				wrapped = toAsyncResult(Promise.reject(value));
+			});
+
+			it('should return promise', function() {
+				expect(wrapped).to.be.instanceOf(Promise);
+			});
+
+			it('should resolve with given AsyncResult instance', async function() {
+				expect(await wrapped).to.be.equal(value);
+			});
+
+		});
+
 	});
 
 	describe('## wrapMethod:', function() {

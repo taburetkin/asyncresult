@@ -39,15 +39,9 @@ AsyncResult.prototype = {
 	setError(err) {
 		this.error = err;
 	},
-	set() {
-		let arr = [];
-		if (arguments.length == 2) {
-			arr = arguments;
-		} else if (arguments.length == 1 && Array.isArray(arguments[0])) {
-			arr = arguments[0];
-		}
-		this.setError(arr[0]);
-		this.setValue(arr[1]);
+	set(err, value) {
+		this.setError(err);
+		this.setValue(value);
 	}
 
 	//#endregion

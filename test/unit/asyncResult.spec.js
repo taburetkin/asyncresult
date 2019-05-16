@@ -271,4 +271,16 @@ describe('# AsyncResult', function() {
 
 	});
 
+	describe('when created with static factory methods', function() {
+		it('should create AsyncResult with value `foo` when creating with `success', function() {
+			let res = AsyncResult.success('foo');
+			expect(res).to.be.instanceof(AsyncResult);
+			expect(res.val()).to.be.equal('foo');
+		});
+		it('should create AsyncResult with error `foo` when creating with `fail', function() {
+			let res = AsyncResult.fail('foo');
+			expect(res).to.be.instanceof(AsyncResult);
+			expect(res.err()).to.be.equal('foo');
+		});
+	});
 });

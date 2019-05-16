@@ -2,7 +2,5 @@
 	"require": [
 		"@babel/register"
 	],
-	"sourceMap": false,
-	"instrument": false,
-	"reporter": "text"
+	"reporter": ["text", "html"]
 }
