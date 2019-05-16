@@ -52,17 +52,17 @@ const fetchSomethingAsync = wrapMethod(fetchSomething);
 const fetchSomethingElseAsync = wrapMethod(fetchSomethingElse);
 const fetchLastThingAsync = wrapMethod(fetchLastThing);
 
-let res = await(fetchSomethingAsync());
+let res = await fetchSomethingAsync();
 if (res.isError()) {
 	throw res.err();
 }
 
-res = await(fetchSomethingElseAsync());
+res = await fetchSomethingElseAsync();
 if (res.isError()) {
 	throw res.err();
 }
 
-res = await(fetchLastThingAsync());
+res = await fetchLastThingAsync();
 if (res.isError()) {
 	throw res.err();
 } else {
