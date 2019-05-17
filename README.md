@@ -62,7 +62,7 @@ async () => {
 and how it can be done with asyncresult-js
 
 ```js
-import { wrapMethod } from "asyncresult";
+import { wrapMethod } from 'asyncresult-js';
 // wrapping methods with special util
 const fetchSomethingAsync = wrapMethod(fetchSomething);
 const fetchSomethingElseAsync = wrapMethod(fetchSomethingElse);
@@ -142,7 +142,7 @@ yarn add asyncresult-js
 example
 
 ```js
-import { AsyncResult } from "asyncresult-js";
+import { AsyncResult } from 'asyncresult-js';
 let r1 = new AsyncResult(null, "foo"); // same as AsyncResult.success('foo')
 console.log(r1.isError()); // false
 console.log(r1.val()); // 'foo'
@@ -163,7 +163,7 @@ console.log(r1.err()); // 'foo'
 examples
 
 ```js
-import { toAsyncResult } from "asyncresult-js";
+import { toAsyncResult } from 'asyncresult-js';
 
 // assume we are in some async context
 async () => {
@@ -189,7 +189,7 @@ async () => {
 examples
 
 ```js
-import { wrapMethod } from "asyncresult-js";
+import { wrapMethod } from 'asyncresult-js';
 
 const myMethod = function() {
   return "foo";
@@ -254,7 +254,7 @@ Something.fooAsync = wrapMethod(Something.foo, { context: Something })
 example
 
 ```js
-import { config, wrapMethod } from "asyncresult-js";
+import { config, wrapMethod } from 'asyncresult-js';
 config.AsyncResult = MyOwnAsyncResult;
 
 const test = () => true;
