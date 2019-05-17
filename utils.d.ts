@@ -31,6 +31,6 @@ export const addAsync: {
     <T, K extends keyof T>(
         context: T,
         methodName: K | K[],
-        options?: { context?: T }
+        options?: { context?: null|T }
     ): void;
 };
