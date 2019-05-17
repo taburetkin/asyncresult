@@ -1,10 +1,3 @@
-import config from './config';
-import AsyncResult from './asyncResult';
-import { toAsyncResult, wrapMethod, addAsync } from './utils';
-export {
-	config,
-	AsyncResult,
-	toAsyncResult,
-	wrapMethod,
-	addAsync
-}
+export { default as config } from './config';
+export { default as AsyncResult } from './asyncResult';
+export { toAsyncResult, wrapMethod, addAsync } from './utils';
