@@ -1,8 +1,11 @@
-# asyncresult-js is a small set of utils for working with promises
+# asyncresult-js  
+Small set of utils for working with promises.  
+
 [![Coverage Status](https://coveralls.io/repos/github/taburetkin/asyncresult/badge.svg?branch=master)](https://coveralls.io/github/taburetkin/asyncresult?branch=master)
 ![Build status](https://secure.travis-ci.org/taburetkin/asyncresult.svg?branch=master)
+![TypeScript](https://img.shields.io/badge/ts--definitions-yes-green.svg)
 ## examples:
-usual approach:
+usual promise approach:
 ```js
 fetchSomething().then(() => {
 	fetchSomethingElse().then(() => {
@@ -19,37 +22,40 @@ fetchSomething().then(() => {
 });
 ```
 
-usual approach with async await
+usual async/await approach
 ```js
-try {
-	await fetchSomething()
-}
-catch (err) {
-	throw err;
-}
+// suppose you are in some async context
+async () => {
+	try {
+		await fetchSomething()
+	}
+	catch (err) {
+		throw err;
+	}
 
-try {
-	await fetchSomethingElse()
-}
-catch (err) {
-	throw err;
-}
+	try {
+		await fetchSomethingElse()
+	}
+	catch (err) {
+		throw err;
+	}
 
-try {
-	let data = await fetchLastThing();
-	showTheData(data);
+	try {
+		let data = await fetchLastThing();
+		showTheData(data);
+	}
+	catch (err) {
+		throw err;
+	}
 }
-catch (err) {
-	throw err;
-}
-
 
 ```
 
 
-and the same with AsyncResult
+and how it can be done with asyncresult-js
 ```js
 import { wrapMethod } from 'asyncresult';
+// wrapping methods with special util
 const fetchSomethingAsync = wrapMethod(fetchSomething);
 const fetchSomethingElseAsync = wrapMethod(fetchSomethingElse);
 const fetchLastThingAsync = wrapMethod(fetchLastThing);
@@ -118,8 +124,6 @@ returns error or value in such order.
 sets given value.  
 - **setError(err)**  
 sets given error.  
-- **set(err, val)**  
-sets given error and value.  
 
 ### static methods
 
