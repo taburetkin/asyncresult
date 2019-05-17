@@ -1,6 +1,7 @@
 # asyncresult-js  
 Small set of utils for working with promises.  
 
+![version](https://img.shields.io/github/package-json/v/taburetkin/asyncresult.svg)
 [![Coverage Status](https://coveralls.io/repos/github/taburetkin/asyncresult/badge.svg?branch=master)](https://coveralls.io/github/taburetkin/asyncresult?branch=master)
 ![Build status](https://secure.travis-ci.org/taburetkin/asyncresult.svg?branch=master)
 ![TypeScript](https://img.shields.io/badge/ts--definitions-yes-green.svg)
