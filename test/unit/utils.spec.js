@@ -211,6 +211,24 @@ describe('# utils:', function() {
       expect(() => wrapMethod(123)).to.throw();
     });
 
+    it('should call given method once with correct arguments', async function() {
+      let spy = this.sinon.spy();
+      let methodAsync = wrapMethod(spy);
+
+      await methodAsync(1, 2, 3);
+      expect(spy).be.calledOnce.and.calledWith(1, 2, 3);
+    });
+
+    it('should call given method once with correct arguments if there is a context provided', async function() {
+      let context = {};
+      let method = function() { return this; }
+      let spy = this.sinon.spy(method);
+      let methodAsync = wrapMethod(spy, { context });
+      let result = await methodAsync(1, 2, 3);
+      expect(spy).be.calledOnce.and.calledWith(1, 2, 3);
+      expect(result.val()).to.be.equal(context);
+    });
+
     describe('when there is no context and no own AsyncResult provided', function() {
       let method;
       let methodAsync;
