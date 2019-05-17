@@ -12,4 +12,7 @@ export default class AsyncResult<V, E = Error>
     errOrVal(): E | V | undefined;
     err(): E | undefined;
     val(): V | undefined;
+
+    setValue( value: V ): void;
+    setError( error: E ): void;
 }
