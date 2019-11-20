@@ -1,5 +1,14 @@
 import config from './config';
 
+/**
+ * Converts given argument to a Promise resolved with AsyncResult instance.
+ * In case argument is an Error AsyncResult instance will be created with error.
+ * In case argument is a promise which wiil be rejected will create AsyncResult with error
+ *
+ * @param {*} promise - any argument
+ * @param {*} [OwnAsyncResult] - own AsyncResult class, if omitted will be used config's version
+ * @returns {Promise} - promise which will be resolved with AsyncResult
+ */
 function toAsyncResult(promise, OwnAsyncResult) {
   let AsyncResult = OwnAsyncResult || config.AsyncResult;
 
@@ -31,6 +40,12 @@ function toAsyncResult(promise, OwnAsyncResult) {
   return newPromise;
 }
 
+/**
+ * Wraps given method, returned result of a method will be instance of AsyncResult
+ * @param {function} method - any method you wants to wrap
+ * @param {object} [options] - You may specify context and AsyncResult for new method through options
+ * @return {function} - wrapped method
+ */
 function wrapMethod(method, { context, AsyncResult } = {}) {
   if (typeof method !== 'function') {
     throw new Error('first argument should be a function');
@@ -51,13 +66,25 @@ function wrapMethod(method, { context, AsyncResult } = {}) {
   return asyncMethod;
 }
 
+/**
+ * Adds async versions of provided methods
+ * @param {(Object|Class)} context - object literal or class
+ * @param {(string|string[])} methodName - method name(s) of provided object.
+ * In case context is a class and there is no option `static:true` will use prototype
+ * @param {object} options - options. context, static
+ * @return {void}
+ */
 function addAsync(context, methodName, options = {}) {
   if (Array.isArray(methodName)) {
     for (let x = 0; x < methodName.length; x++) {
       addAsync(context, methodName[x], options);
     }
   } else {
-    if (options.context == null) {
+    let isCtor = typeof context === 'function';
+    if (isCtor && !options.static) {
+      context = context.prototype
+    }
+    if (!isCtor && options.context === void 0) {
       options.context = context;
     }
     context[methodName + 'Async'] = wrapMethod(context[methodName], options);

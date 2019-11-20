@@ -390,6 +390,9 @@ describe('# utils:', function() {
       },
       baz() {
         return Promise.resolve('baz');
+      },
+      test() {
+        return this;
       }
     };
     afterEach(function() {
@@ -432,5 +435,48 @@ describe('# utils:', function() {
         expect(result.err()).to.be.equal('foo');
       });
     });
+
+    describe('when applying to prototype', function() {
+      let Cls;
+      let instance;
+      beforeEach(() => {
+        Cls = function() {};
+        Cls.prototype = Object.assign({}, context);
+        addAsync(Cls.prototype, ['test'], { context: null });
+        instance = new Cls();
+      });
+      it('should bind context correctly', async () => {
+        let result = await instance.testAsync();
+        expect(result, 'be AsyncResult').to.be.instanceOf(AsyncResult);
+        expect(result.val(), 'be instance').to.be.equal(instance);
+      });
+    });
+    
+    describe('when applying to class', function() {
+      let Cls;
+      let instance;
+      beforeEach(() => {
+        Cls = function() {};
+        Cls.staticTest = function() { return this; };
+        Cls.prototype = Object.assign({}, context);
+        addAsync(Cls, ['test']);
+        addAsync(Cls, ['staticTest'], { static: true });
+        instance = new Cls();
+      });
+      it('should bind context correctly', async () => {
+        let result = await instance.testAsync();
+        expect(Cls.testAsync).to.be.undefined;
+        expect(result, 'be AsyncResult').to.be.instanceOf(AsyncResult);
+        expect(result.val(), 'be instance').to.be.equal(instance);
+      });
+      it('should use class static methods if option `static` is true', async () => {
+        expect(Cls.staticTestAsync).to.be.a('function');
+        let result = await Cls.staticTestAsync();
+        expect(result).to.be.instanceOf(AsyncResult);
+        expect(result.val()).to.be.equal(Cls);
+      });
+    });
+
+
   });
 });

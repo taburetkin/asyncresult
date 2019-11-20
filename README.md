@@ -5,7 +5,7 @@ Small set of utils for working with promises.
 ![version](https://img.shields.io/github/package-json/v/taburetkin/asyncresult.svg)
 [![Coverage Status](https://coveralls.io/repos/github/taburetkin/asyncresult/badge.svg?branch=master)](https://coveralls.io/github/taburetkin/asyncresult?branch=master)
 ![Build status](https://secure.travis-ci.org/taburetkin/asyncresult.svg?branch=master)
-![TypeScript](https://img.shields.io/badge/ts--definitions-yes-green.svg)
+
 
 ## examples:
 
@@ -233,6 +233,30 @@ const Something = {
 	foo() { ... },
 }
 Something.fooAsync = wrapMethod(Something.foo, { context: Something })
+```
+
+Also, its possible to extend prototype of some class  
+You can do this in two ways
+1. patch prototype
+```js
+addAsync(SomeClass.prototype, [...], { context: null });
+```
+Note, that there should be null context specified in options.  
+
+2. pass class itself as argument
+```js
+addAsync(SomeClass, [...]);
+```
+actually its just a suggar for case 1. 
+
+**Warning**: Note, that both modifies prototype so you should know what are you doing.
+
+In case you want to add class static methods you have to use option `static`
+
+```javascript
+// assume that SomeClass.staticMethod is a function.
+addAsync(SomeClass, 'staticMethod', { static: true });
+await SomeClass.staticMethodAsync();
 ```
 
 ### arguments
