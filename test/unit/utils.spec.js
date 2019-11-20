@@ -1,11 +1,6 @@
 import { toAsyncResult, wrapMethod, AsyncResult, addAsync } from '../../';
-const OwnAsyncResult = function() {
-  AsyncResult.apply(this, arguments);
-};
-OwnAsyncResult.prototype = Object.create(AsyncResult.prototype);
-OwnAsyncResult.prototype.constructor = AsyncResult;
-OwnAsyncResult.success = AsyncResult.success;
-OwnAsyncResult.fail = AsyncResult.fail;
+import { OwnAsyncResult } from '../test-helpres';
+import { config } from '../..';
 
 describe('# utils:', function() {
   describe('## toAsyncResult:', function() {
@@ -202,6 +197,21 @@ describe('# utils:', function() {
         expect(await wrapped).to.be.equal(value);
       });
     });
+
+    describe('when AsyncResult redefined in config', () => {
+      beforeEach(() => {
+        config.AsyncResult = OwnAsyncResult;
+      });
+      afterEach(() => {
+        config.AsyncResult = AsyncResult;
+      });
+      it('should return instance of provided AsyncResult class by default', async () => {
+        let res = await toAsyncResult();
+        expect(res).to.be.instanceof(AsyncResult);
+        expect(res).to.be.instanceof(OwnAsyncResult);
+      })
+    });
+
   });
 
   describe('## wrapMethod:', function() {
@@ -313,6 +323,36 @@ describe('# utils:', function() {
       it('should call wrapped method binded to a context', async function() {
         let result = await methodAsync();
         expect(result.val()).to.be.equal(context);
+      });
+
+      it('should return OwnAsyncResult instance with expected result after awaiting of call', async function() {
+        let result = await methodAsync();
+        expect(result).to.be.instanceOf(OwnAsyncResult);
+        expect(result.val()).to.be.equal(context);
+      });
+    });
+
+    describe('when own AsyncResult defined in config', () => {
+      let method;
+      let methodAsync;
+      let context;
+      beforeEach(() => {
+        context = { foo: 123 };
+        config.AsyncResult = OwnAsyncResult;
+        method = sinon.spy(function() { return this; });
+        methodAsync = wrapMethod(method, { context });
+      });
+      afterEach(() => {
+        config.AsyncResult = AsyncResult;
+      });
+
+      it('should return function', function() {
+        expect(methodAsync).to.be.a('function');
+      });
+
+      it('should call wrapped method only once', async function() {
+        await methodAsync();
+        expect(method).to.be.calledOnce;
       });
 
       it('should return OwnAsyncResult instance with expected result after awaiting of call', async function() {

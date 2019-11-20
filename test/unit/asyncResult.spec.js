@@ -1,4 +1,5 @@
 import { AsyncResult } from '../..';
+import { OwnAsyncResult } from '../test-helpres';
 
 describe('# AsyncResult', function() {
   describe('when created with value and without error', function() {
@@ -274,5 +275,14 @@ describe('# AsyncResult', function() {
       expect(res).to.be.instanceof(AsyncResult);
       expect(res.err()).to.be.equal('foo');
     });
+    it('`success` should respect extended AsyncResult version', () => {
+      let res = OwnAsyncResult.success('foo');
+      expect(res).to.be.instanceof(OwnAsyncResult);
+    });
+    it('`fail` should respect extended AsyncResult version', () => {
+      let res = OwnAsyncResult.fail('foo');
+      expect(res).to.be.instanceof(OwnAsyncResult);
+    });
   });
+
 });
