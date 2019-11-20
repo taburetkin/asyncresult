@@ -47,11 +47,11 @@ AsyncResult.prototype = {
 };
 
 AsyncResult.success = function(data) {
-  return new AsyncResult(null, data);
+  return new this(null, data);
 };
 
 AsyncResult.fail = function(err) {
-  return new AsyncResult(err);
+  return new this(err);
 };
 
 export default AsyncResult;

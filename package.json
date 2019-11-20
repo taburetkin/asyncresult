@@ -1,6 +1,6 @@
 {
 	"name": "asyncresult-js",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "helpful wrapper for promises",
 	"main": "index.js",
 	"repository": "https://github.com/taburetkin/asyncresult.git",
@@ -10,7 +10,7 @@
 		"test-w": "mocha -w --config ./test/.mocharc.json",
 		"test": "mocha --config ./test/.mocharc.json",
 		"coverage": "nyc npm run test",
-		"coveralls" : "yarn coverage && nyc --reporter=text-lcov npm run test | coveralls"
+		"coveralls": "yarn coverage && nyc --reporter=text-lcov npm run test | coveralls"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.4.4",
@@ -21,8 +21,8 @@
 		"chai": "^4.2.0",
 		"chai-as-promised": "^7.1.1",
 		"coveralls": "^3.0.3",
-		"cross-env": "^5.2.0",
-		"eslint": "^5.16.0",
+		"cross-env": "^6.0.3",
+		"eslint": "^6.6.0",
 		"mocha": "^6.1.4",
 		"nyc": "^14.1.0",
 		"sinon": "^7.3.2",
