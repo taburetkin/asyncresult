@@ -46,15 +46,20 @@ function toAsyncResult(promise, OwnAsyncResult) {
  * @param {object} [options] - You may specify context and AsyncResult for new method through options
  * @return {function} - wrapped method
  */
-function wrapMethod(method, { context, AsyncResult } = {}) {
+function wrapMethod(method, { context, AsyncResult, prototypeMethod, methodName } = {}) {
   if (typeof method !== 'function') {
-    throw new Error('first argument should be a function');
+    throw new Error('first argument should be a function or context should be provided');
   }
   !AsyncResult && (AsyncResult = config.AsyncResult);
 
   let asyncMethod = function() {
     try {
-      let result = method.apply(this, arguments);
+      let result;
+      if (methodName) {
+        result = this[methodName].apply(this, arguments);
+      } else {
+        result = method.apply(this, arguments);
+      }
       return toAsyncResult(result, AsyncResult);
     } catch (error) {
       return toAsyncResult(error, AsyncResult);
@@ -81,8 +86,10 @@ function addAsync(context, methodName, options = {}) {
     }
   } else {
     let isCtor = typeof context === 'function';
+    options.methodName = methodName;
     if (isCtor && !options.static) {
       context = context.prototype
+      options.prototypeMethod = true;
     }
     if (!isCtor && options.context === void 0) {
       options.context = context;

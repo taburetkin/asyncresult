@@ -477,6 +477,42 @@ describe('# utils:', function() {
       });
     });
 
+    describe('context of wrapped method', function() {
+      let context;
+      let instance;
+      let spy1;
+      let spy2;
+      beforeEach(() => {
+        spy1 = sinon.spy();
+        spy2 = sinon.spy();
+        context = {
+          method: spy1,
+        };
+        const Cls = function() {};
+        Cls.prototype = {
+          method: spy2,
+        }
+        addAsync(context, 'method');
+        instance = new Cls();
+        addAsync(instance, 'method');
+      });
+      it('should use correct `this` when context is a plain object', async () => {
+        expect(typeof context.methodAsync, 'has async method').to.be.equal('function');
+        let res = await context.methodAsync();
+        expect(spy1, 'called once').to.be.calledOnce;
+        expect(res, 'instanceof AsyncResult').to.be.instanceOf(AsyncResult);
+        let call = spy1.getCall(0);
+        expect(call, 'correct context').calledOn(context);
+      });
+      it('should use correct `this` when context is an instance of a class', async () => {
+        expect(typeof instance.methodAsync, 'has async method').to.be.equal('function');
+        let res = await instance.methodAsync();
+        expect(spy2, 'called once').to.be.calledOnce;
+        expect(res, 'instanceof AsyncResult').to.be.instanceOf(AsyncResult);
+        let call = spy2.getCall(0);
+        expect(call, 'correct context').calledOn(instance);
+      });      
+    });
 
   });
 });
